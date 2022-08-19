@@ -1,0 +1,24 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+<persistence-unit name="default" transaction-type="JTA">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <properties>
+        <property name="jboss.as.jpa.providerModule" value="org.hibernate:5.3"/>
+        <property name="hibernate.multiTenancy" value="DATABASE" />
+        <property name="hibernate.multi_tenant_connection_provider" value="com.evavrynchuk.multitenancy.hibernate.DatabaseMultiTenantProvider" />
+        <property name="hibernate.tenant_identifier_resolver" value="com.evavrynchuk.multitenancy.hibernate.DatabaseTenantResolver" />
+        <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect" />
+        <property name="hibernate.show_sql" value="false" />
+        <property name="hibernate.format_sql" value="true" />
+        <!--
+            There is a Hibernate bug that prevents the 'hibernate.query.passDistinctThrough' hint from working if comments are sent
+            https://hibernate.atlassian.net/browse/HHH-13280
+        -->
+        <property name="hibernate.use_sql_comments" value="false" />
+        <property name="hibernate.cache.use_query_cache" value="false" />
+        <property name="hibernate.cache.use_second_level_cache" value="false" />
+    </properties>
+</persistence-unit>
+</persistence>
